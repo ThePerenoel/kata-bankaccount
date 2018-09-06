@@ -6,10 +6,21 @@ import java.util.Objects;
 
 public class TestTransactions implements Transactions {
 
-    private List<Integer> transactions = new ArrayList<>();
+    private List<Integer> transactions;
+    private List<BankOperation> operations;
+
+    public TestTransactions() {
+        transactions = new ArrayList<>();
+        operations = new ArrayList<>();
+    }
 
     public void add(Integer amount) {
         this.transactions.add(amount);
+    }
+
+    @Override
+    public void add(BankOperation operation) {
+        this.operations.add(operation);
     }
 
     @Override
@@ -17,18 +28,20 @@ public class TestTransactions implements Transactions {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestTransactions that = (TestTransactions) o;
-        return Objects.equals(transactions, that.transactions);
+        return Objects.equals(transactions, that.transactions) &&
+                Objects.equals(operations, that.operations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactions);
+        return Objects.hash(transactions, operations);
     }
 
     @Override
     public String toString() {
         return "TestTransactions{" +
                 "transactions=" + transactions +
+                ", operations=" + operations +
                 '}';
     }
 }

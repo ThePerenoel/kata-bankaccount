@@ -14,4 +14,8 @@ public class BankAccount {
     public void withdraw(Integer amount) {
         this.transactions.add(-amount);
     }
+
+    public void depositWithDate(BankOperation operation) {
+        this.transactions.add(operation);
+    }
 }
