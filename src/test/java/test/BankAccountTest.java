@@ -43,4 +43,38 @@ public class BankAccountTest {
 
     }
 
+    @Nested
+    @DisplayName("withdraw method should")
+    class WithdrawMethodShould {
+
+        @Test
+        void add_minus_30_to_its_transactions_when_given_30() {
+
+            Transactions bankAccountTransactions = new TestTransactions();
+            BankAccount bankAccount = new BankAccount(bankAccountTransactions);
+            Transactions testTransactions = new TestTransactions();
+
+            bankAccount.withdraw(30);
+            testTransactions.add(-30);
+
+            assertThat(bankAccountTransactions).isEqualTo(testTransactions);
+        }
+
+        @Test
+        void add_minus_30_and_minus_20_to_its_transactions_when_given_30_and_20() {
+
+            Transactions bankAccountTransactions = new TestTransactions();
+            BankAccount bankAccount = new BankAccount(bankAccountTransactions);
+            Transactions testTransactions = new TestTransactions();
+
+            bankAccount.withdraw(30);
+            bankAccount.withdraw(20);
+            testTransactions.add(-30);
+            testTransactions.add(-20);
+
+            assertThat(bankAccountTransactions).isEqualTo(testTransactions);
+        }
+
+    }
+
 }

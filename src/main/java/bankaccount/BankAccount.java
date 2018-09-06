@@ -10,4 +10,8 @@ public class BankAccount {
     public void deposit(Integer amount) {
         this.transactions.add(amount);
     }
+
+    public void withdraw(Integer amount) {
+        this.transactions.add(-amount);
+    }
 }
