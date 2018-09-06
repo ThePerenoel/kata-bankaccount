@@ -1,5 +1,7 @@
 package bankaccount;
 
+import java.time.LocalTime;
+
 public class BankAccount {
     private final Transactions transactions;
 
@@ -15,11 +17,22 @@ public class BankAccount {
         this.transactions.add(-amount);
     }
 
-    public void depositWithDate(BankOperation operation) {
-        this.transactions.add(operation);
-    }
-
-    public void withdrawWithDate(BankOperation bankOperation) {
+    public void withdrawWithDate(int amount, LocalTime time) {
+        BankOperation bankOperation = new BankOperation("WITHDRAWAL", amount, time);
         this.transactions.add(bankOperation);
     }
+
+    public void depositWithDate(int amount, LocalTime time) {
+        BankOperation bankOperation = new BankOperation("DEPOSIT", amount, time);
+        this.transactions.add(bankOperation);
+    }
+
+    public AccountHistory getAccountHistory() {
+        int balance = this.transactions.sumAll();
+        return new AccountHistory(this.transactions,balance);
+    }
+
+/*    public AccountHistory getAccountHistory() {
+        return null;
+    }*/
 }

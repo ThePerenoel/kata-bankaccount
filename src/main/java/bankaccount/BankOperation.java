@@ -8,10 +8,22 @@ public class BankOperation {
     private final int amount;
     private final LocalTime time;
 
-    public BankOperation(String deposit, int amount, LocalTime time) {
-        this.type = deposit;
+    public BankOperation(String type, int amount, LocalTime time) {
+        this.type = type;
         this.amount = amount;
         this.time = time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public LocalTime getTime() {
+        return time;
     }
 
     @Override

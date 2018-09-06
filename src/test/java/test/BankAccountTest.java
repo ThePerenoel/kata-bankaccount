@@ -1,9 +1,6 @@
 package test;
 
-import bankaccount.BankAccount;
-import bankaccount.BankOperation;
-import bankaccount.TestTransactions;
-import bankaccount.Transactions;
+import bankaccount.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -92,7 +89,7 @@ public class BankAccountTest {
             Transactions testTransactions = new TestTransactions();
             BankOperation bankOperation = new BankOperation("DEPOSIT", 30, LocalTime.of(10,0));
 
-            bankAccount.depositWithDate(bankOperation);
+            bankAccount.depositWithDate(30, LocalTime.of(10,0));
             testTransactions.add(bankOperation);
 
             assertThat(bankAccountTransactions).isEqualTo(testTransactions);
@@ -109,9 +106,9 @@ public class BankAccountTest {
             BankOperation bankOperation2 = new BankOperation("DEPOSIT", 20, LocalTime.of(11,0));
             BankOperation bankOperation3 = new BankOperation("DEPOSIT", 40, LocalTime.of(12,0));
 
-            bankAccount.depositWithDate(bankOperation);
-            bankAccount.depositWithDate(bankOperation2);
-            bankAccount.depositWithDate(bankOperation3);
+            bankAccount.depositWithDate(30, LocalTime.of(10,0));
+            bankAccount.depositWithDate(20, LocalTime.of(11,0));
+            bankAccount.depositWithDate(40, LocalTime.of(12,0));
             testTransactions.add(bankOperation);
             testTransactions.add(bankOperation2);
             testTransactions.add(bankOperation3);
@@ -134,7 +131,7 @@ public class BankAccountTest {
             Transactions testTransactions = new TestTransactions();
             BankOperation bankOperation = new BankOperation("WITHDRAWAL", -30, LocalTime.of(10,0));
 
-            bankAccount.withdrawWithDate(bankOperation);
+            bankAccount.withdrawWithDate(-30, LocalTime.of(10,0));
             testTransactions.add(bankOperation);
 
             assertThat(bankAccountTransactions).isEqualTo(testTransactions);
@@ -151,9 +148,9 @@ public class BankAccountTest {
             BankOperation bankOperation2 = new BankOperation("WITHDRAWAL", -20, LocalTime.of(11,0));
             BankOperation bankOperation3 = new BankOperation("WITHDRAWAL", -40, LocalTime.of(12,0));
 
-            bankAccount.depositWithDate(bankOperation);
-            bankAccount.depositWithDate(bankOperation2);
-            bankAccount.depositWithDate(bankOperation3);
+            bankAccount.withdrawWithDate(-30, LocalTime.of(10,0));
+            bankAccount.withdrawWithDate(-20, LocalTime.of(11,0));
+            bankAccount.withdrawWithDate(-40, LocalTime.of(12,0));
             testTransactions.add(bankOperation);
             testTransactions.add(bankOperation2);
             testTransactions.add(bankOperation3);
@@ -162,6 +159,34 @@ public class BankAccountTest {
 
         }
 
+    }
+    @Nested
+    @DisplayName("withdrawWithDate method should")
+    class getHistory {
+
+        @Test
+        void return_history_with_all_operations_and_balance() {
+            Transactions bankAccountTransactions = new TestTransactions();
+            BankAccount bankAccount = new BankAccount(bankAccountTransactions);
+            bankAccount.withdrawWithDate(-30, LocalTime.of(10,0));
+            bankAccount.depositWithDate(20, LocalTime.of(11,0));
+            bankAccount.withdrawWithDate(-40, LocalTime.of(12,0));
+
+            Transactions testTransactions = new TestTransactions();
+            BankOperation bankOperation = new BankOperation("WITHDRAWAL", -30, LocalTime.of(10,0));
+            BankOperation bankOperation2 = new BankOperation("DEPOSIT", 20, LocalTime.of(11,0));
+            BankOperation bankOperation3 = new BankOperation("WITHDRAWAL", -40, LocalTime.of(12,0));
+
+            testTransactions.add(bankOperation);
+            testTransactions.add(bankOperation2);
+            testTransactions.add(bankOperation3);
+
+            AccountHistory accountHistory = bankAccount.getAccountHistory();
+            AccountHistory accountHistoryToCompare = new AccountHistory(testTransactions, testTransactions.sumAll());
+
+            assertThat(accountHistory).isEqualTo(accountHistoryToCompare);
+
+        }
     }
 
 }

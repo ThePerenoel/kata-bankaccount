@@ -3,6 +3,7 @@ package bankaccount;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class TestTransactions implements Transactions {
 
@@ -21,6 +22,11 @@ public class TestTransactions implements Transactions {
     @Override
     public void add(BankOperation operation) {
         this.operations.add(operation);
+    }
+
+    @Override
+    public int sumAll() {
+        return this.operations.stream().mapToInt(BankOperation::getAmount).sum();
     }
 
     @Override
