@@ -122,5 +122,46 @@ public class BankAccountTest {
 
     }
 
+    @Nested
+    @DisplayName("withdrawWithDate method should")
+    class WithdrawWithDate {
+
+        @Test
+        void add_one_BankOperation_to_its_Transactions() {
+
+            Transactions bankAccountTransactions = new TestTransactions();
+            BankAccount bankAccount = new BankAccount(bankAccountTransactions);
+            Transactions testTransactions = new TestTransactions();
+            BankOperation bankOperation = new BankOperation("WITHDRAWAL", -30, LocalTime.of(10,0));
+
+            bankAccount.withdrawWithDate(bankOperation);
+            testTransactions.add(bankOperation);
+
+            assertThat(bankAccountTransactions).isEqualTo(testTransactions);
+
+        }
+
+        @Test
+        void add_several_BankOperation_to_its_Transactions() {
+
+            Transactions bankAccountTransactions = new TestTransactions();
+            BankAccount bankAccount = new BankAccount(bankAccountTransactions);
+            Transactions testTransactions = new TestTransactions();
+            BankOperation bankOperation = new BankOperation("WITHDRAWAL", -30, LocalTime.of(10,0));
+            BankOperation bankOperation2 = new BankOperation("WITHDRAWAL", -20, LocalTime.of(11,0));
+            BankOperation bankOperation3 = new BankOperation("WITHDRAWAL", -40, LocalTime.of(12,0));
+
+            bankAccount.depositWithDate(bankOperation);
+            bankAccount.depositWithDate(bankOperation2);
+            bankAccount.depositWithDate(bankOperation3);
+            testTransactions.add(bankOperation);
+            testTransactions.add(bankOperation2);
+            testTransactions.add(bankOperation3);
+
+            assertThat(bankAccountTransactions).isEqualTo(testTransactions);
+
+        }
+
+    }
 
 }

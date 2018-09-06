@@ -18,4 +18,8 @@ public class BankAccount {
     public void depositWithDate(BankOperation operation) {
         this.transactions.add(operation);
     }
+
+    public void withdrawWithDate(BankOperation bankOperation) {
+        this.transactions.add(bankOperation);
+    }
 }
