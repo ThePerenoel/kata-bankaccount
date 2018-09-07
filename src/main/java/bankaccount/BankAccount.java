@@ -9,14 +9,6 @@ public class BankAccount {
         this.transactions = transactions;
     }
 
-    public void deposit(Integer amount) {
-        this.transactions.add(amount);
-    }
-
-    public void withdraw(Integer amount) {
-        this.transactions.add(-amount);
-    }
-
     public void withdrawWithDate(int amount, LocalTime time) {
         BankOperation bankOperation = new BankOperation("WITHDRAWAL", amount, time);
         this.transactions.add(bankOperation);
@@ -32,7 +24,4 @@ public class BankAccount {
         return new AccountHistory(this.transactions,balance);
     }
 
-/*    public AccountHistory getAccountHistory() {
-        return null;
-    }*/
 }

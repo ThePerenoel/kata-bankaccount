@@ -14,16 +14,8 @@ public class BankOperation {
         this.time = time;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public int getAmount() {
         return amount;
-    }
-
-    public LocalTime getTime() {
-        return time;
     }
 
     @Override
