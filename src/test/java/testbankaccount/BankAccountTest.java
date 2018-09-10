@@ -1,6 +1,7 @@
 package testbankaccount;
 
 import bankaccount.BankAccount;
+import bankaccount.MoneyAmount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,29 +18,27 @@ public class BankAccountTest {
     class DepositShould {
 
         @Test
-        void add_an_integer_to_a_list_of_transactions() {
-            List<Integer> transactions = new ArrayList<>();
-            BankAccount bankAccount = new BankAccount(transactions);
+        void add_an_amount_to_a_list_of_transactions() {
+            List<MoneyAmount> transactions2 = new ArrayList<>();
+            BankAccount bankAccount = new BankAccount(transactions2);
 
-            bankAccount.deposit(10);
+            bankAccount.deposit(new MoneyAmount(10));
 
-            assertThat(transactions).containsExactly(10);
+            assertThat(transactions2).contains(new MoneyAmount(10));
         }
 
         @Test
-        void add_multiple_integers_to_a_list_of_transactions() {
-            List<Integer> transactions = new ArrayList<>();
-            BankAccount bankAccount = new BankAccount(transactions);
+        void add_multiple_amounts_to_a_list_of_transactions() {
+            List<MoneyAmount> transactions2 = new ArrayList<>();
+            BankAccount bankAccount = new BankAccount(transactions2);
 
-            bankAccount.deposit(10);
-            bankAccount.deposit(20);
-            bankAccount.deposit(30);
-            bankAccount.deposit(40);
+            bankAccount.deposit(new MoneyAmount(10));
+            bankAccount.deposit(new MoneyAmount(20));
+            bankAccount.deposit(new MoneyAmount(30));
+            bankAccount.deposit(new MoneyAmount(40));
 
-            assertThat(transactions).hasSize(4);
+            assertThat(transactions2).hasSize(4);
         }
-
-
 
 
     }

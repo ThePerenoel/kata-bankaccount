@@ -3,14 +3,13 @@ package bankaccount;
 import java.util.List;
 
 public class BankAccount {
-    private final List<Integer> transactions;
+    private final List<MoneyAmount> transactions;
 
-    public BankAccount(List<Integer> transactions) {
-
+    public BankAccount(List<MoneyAmount> transactions) {
         this.transactions = transactions;
     }
 
-    public void deposit(int amount) {
-        transactions.add(amount);
+    public void deposit(MoneyAmount moneyAmount) {
+        transactions.add(moneyAmount);
     }
 }
