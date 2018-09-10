@@ -1,11 +1,13 @@
 package testbankaccount;
 
+import bankaccount.AccountStatement;
 import bankaccount.BankAccount;
 import bankaccount.MoneyAmount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,26 +20,25 @@ public class BankAccountTest {
     class DepositShould {
 
         @Test
-        void add_an_amount_to_a_list_of_transactions() {
-            List<MoneyAmount> transactions = new ArrayList<>();
-            BankAccount bankAccount = new BankAccount(transactions);
+        void add_a_statement_typed_DEPOSIT_to_a_list_of_statements() {
+            List<AccountStatement> statements = new ArrayList<>();
+            BankAccount bankAccount = new BankAccount(statements);
 
-            bankAccount.deposit(new MoneyAmount(10));
+            bankAccount.deposit(new MoneyAmount(10), LocalDate.of(2018,01,01));
 
-            assertThat(transactions).contains(new MoneyAmount(10));
+            assertThat(statements).contains(new AccountStatement("DEPOSIT", LocalDate.of(2018,01,01), new MoneyAmount(10)));
         }
 
         @Test
-        void add_multiple_amounts_to_a_list_of_transactions() {
-            List<MoneyAmount> transactions = new ArrayList<>();
-            BankAccount bankAccount = new BankAccount(transactions);
+        void add_multiple_statements_typed_DEPOSIT_to_a_list_of_statements() {
+            List<AccountStatement> statements = new ArrayList<>();
+            BankAccount bankAccount = new BankAccount(statements);
 
-            bankAccount.deposit(new MoneyAmount(10));
-            bankAccount.deposit(new MoneyAmount(20));
-            bankAccount.deposit(new MoneyAmount(30));
-            bankAccount.deposit(new MoneyAmount(40));
+            bankAccount.deposit(new MoneyAmount(10), LocalDate.of(2018,01,01));
+            bankAccount.deposit(new MoneyAmount(20), LocalDate.of(2018,02,01));
+            bankAccount.deposit(new MoneyAmount(30), LocalDate.of(2018,03,01));
 
-            assertThat(transactions).hasSize(4);
+            assertThat(statements).hasSize(3);
         }
 
     }
@@ -47,13 +48,14 @@ public class BankAccountTest {
     class WithdrawShould {
 
         @Test
-        void add_a_negative_amount_to_a_list_of_transactions() {
+        void add_a_statement_typed_WITHDRAWAL_to_a_list_of_statements() {
             List<MoneyAmount> transactions = new ArrayList<>();
-            BankAccount bankAccount = new BankAccount(transactions);
+            List<AccountStatement> statements = new ArrayList<>();
+            BankAccount bankAccount = new BankAccount(statements);
 
-            bankAccount.withdraw(new MoneyAmount(10));
+            bankAccount.withdraw(new MoneyAmount(10), LocalDate.of(2018,01,01));
 
-            assertThat(transactions).contains(new MoneyAmount(-10));
+            assertThat(statements).contains(new AccountStatement("WITHDRAWAL", LocalDate.of(2018,01,01), new MoneyAmount(-10)));
         }
 
     }

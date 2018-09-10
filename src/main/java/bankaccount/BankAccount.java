@@ -1,19 +1,22 @@
 package bankaccount;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class BankAccount {
-    private final List<MoneyAmount> transactions;
+    private List<AccountStatement> statements;
 
-    public BankAccount(List<MoneyAmount> transactions) {
-        this.transactions = transactions;
+    public BankAccount(List<AccountStatement> statements) {
+        this.statements = statements;
     }
 
-    public void deposit(MoneyAmount moneyAmount) {
-        transactions.add(moneyAmount);
+    public void deposit(MoneyAmount moneyAmount, LocalDate date) {
+        AccountStatement statement = new AccountStatement("DEPOSIT",date, moneyAmount);
+        this.statements.add(statement);
     }
 
-    public void withdraw(MoneyAmount moneyAmount) {
-        transactions.add(moneyAmount.getOpposite());
+    public void withdraw(MoneyAmount moneyAmount, LocalDate date) {
+        AccountStatement statement = new AccountStatement("WITHDRAWAL", date, moneyAmount.getOpposite());
+        this.statements.add(statement);
     }
 }
