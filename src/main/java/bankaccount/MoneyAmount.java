@@ -29,4 +29,8 @@ public class MoneyAmount {
                 "amount=" + amount +
                 '}';
     }
+
+    public MoneyAmount getOpposite() {
+        return new MoneyAmount(-this.amount);
+    }
 }

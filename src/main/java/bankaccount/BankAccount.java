@@ -12,4 +12,8 @@ public class BankAccount {
     public void deposit(MoneyAmount moneyAmount) {
         transactions.add(moneyAmount);
     }
+
+    public void withdraw(MoneyAmount moneyAmount) {
+        transactions.add(moneyAmount.getOpposite());
+    }
 }
