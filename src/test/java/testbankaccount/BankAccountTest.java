@@ -26,6 +26,21 @@ public class BankAccountTest {
             assertThat(transactions).containsExactly(10);
         }
 
+        @Test
+        void add_multiple_integers_to_a_list_of_transactions() {
+            List<Integer> transactions = new ArrayList<>();
+            BankAccount bankAccount = new BankAccount(transactions);
+
+            bankAccount.deposit(10);
+            bankAccount.deposit(20);
+            bankAccount.deposit(30);
+            bankAccount.deposit(40);
+
+            assertThat(transactions).hasSize(4);
+        }
+
+
+
 
     }
 
